@@ -65,9 +65,9 @@
 
                 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                     <legend>Sexo:</legend>
-                        <input type="radio" name="radio-choice-b" id="radio-choice-c" value="M" checked="checked">
+                        <input type="radio" name="radio-choice-b" id="radio-choice-c" value="Masculino" checked="checked">
                         <label for="radio-choice-c">Masculino</label>
-                        <input type="radio" name="radio-choice-b" id="radio-choice-d" value="F">
+                        <input type="radio" name="radio-choice-b" id="radio-choice-d" value="Feminino">
                         <label for="radio-choice-d">Feminino</label>
                 </fieldset>
 
@@ -77,6 +77,48 @@
                 
             </div><!-- /content -->
 
+        </div><!-- /page -->
+
+        <div data-role="page" id="pagealuno">
+            <div data-role="popup" id="deleteAluno" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:85%; padding-bottom:2em; width:85%">
+                <h3>Excluir aluno?</h3>
+                <p>O aluno será excluído e todo histórico será perdido.</p>
+                <a href="#" data-role="button" data-rel="back" data-theme="b" data-icon="check" data-inline="true" data-mini="true" onClick="removeAluno();">Confirmar</a>
+                <a href="#" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancelar</a>
+            </div>
+
+        
+             <div data-role="panel" data-position-fixed="true" id="nav-panel-alunos">
+                <ul data-role="listview" data-theme="b" class="nav-search" id="listviewAlunos">
+                    <li><a href="#page">Novo aluno</a></li>
+                </ul>
+            </div><!-- /panel -->
+            
+            <div data-role="header" data-position="fixed" data-theme="d">
+                <h1 id="nomeAluno">Aluno</h1>
+                <a href="#nav-panel-alunos" data-icon="bars" data-iconpos="notext">Alunos</a>
+                <a href="#" data-icon="delete" data-theme="b" data-iconpos="notext" onClick="excluir();">Excluir</a>
+            </div><!-- /header -->
+            
+                <div data-role="content">
+                    <div data-role="popup" id="deleteAluno" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:85%; padding-bottom:2em; width:85%">
+                        <h3>Excluir aluno?</h3>
+                        <p>O aluno será excluído e todo histórico será perdido.</p>
+                        <a href="#" data-role="button" data-rel="back" data-theme="b" data-icon="check" data-inline="true" data-mini="true" onClick="removeAluno();">Confirmar</a>
+                        <a href="#" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancelar</a>
+                    </div>
+                    <div id="dadosAluno">
+                    
+                    </div>
+                            
+                        </div><!-- /content -->
+                    
+                    </div>
+                    
+                </div>
+
+            <div data-role="footer">
+            </div><!-- /footer -->
         </div><!-- /page -->
 
         <script type="text/javascript" src="phonegap.js"></script>

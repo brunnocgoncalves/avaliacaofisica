@@ -17,6 +17,7 @@
  * under the License.
  */
 var novoId;
+var idAluno;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -75,9 +76,9 @@ function createAluno(tx) {
     varEmail = document.getElementById("email").value;
     vardatanascimento = document.getElementById("date").value;
     varSexo = $('#radio-choice-c').filter(':checked').val();
-    if(varSexo!="M")
+    if(varSexo!="Masculino")
         {
-            varSexo = "F";
+            varSexo = "Feminino";
         }
     tx.executeSql('INSERT INTO S_ALUNO (nome, email, datanascimento, sexo, created) VALUES ("' + varNome + '", "' + varEmail + '", "' + vardatanascimento + '", "' + varSexo + '", datetime("now"))');
 }
@@ -87,4 +88,82 @@ function successCA() {
     
     var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
     db.transaction(listaAlunos, errorSQL);
+}
+
+function openAluno(id, nome){
+    idAluno = id;
+    console.log('Aluno ' + idAluno);
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(carregaAluno, errorSQL);
+    //db.transaction(listaAlunos2, errorSQL);
+    $.mobile.changePage("#pagealuno");
+}
+
+function carregaAluno(tx){
+    tx.executeSql('SELECT '
+        + 'strftime("%d/%m/%Y",S.datanascimento) datanascimento '
+        + ',S.nome '
+        + ',S.email '
+        + ',S.sexo '
+        + 'FROM S_ALUNO S '
+        + 'Where '
+        + 'S.id = ' + idAluno
+        , [], successLoadAluno, errorSQL);
+}
+
+function successLoadAluno(tx, results) {
+    console.log("Load Aluno");
+    var len = results.rows.length;
+    for (var i=0; i<len; i++){
+        document.getElementById('nomeAluno').innerHTML = results.rows.item(i).nome;
+        document.getElementById('dadosAluno').innerHTML = '<p>E-mail: ' + results.rows.item(i).email + '</p>'
+                        + '<p>Sexo: ' + results.rows.item(i).sexo + '</strong></p>'
+                        + '<p>Data de nascimento: ' + results.rows.item(i).datanascimento + '</strong></p>';
+    }
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(listaAlunos2, errorSQL);
+}
+
+function listaAlunos2(tx){
+    tx.executeSql('SELECT * FROM S_ALUNO', [], successLAAlunos, errorSQL);
+}
+
+function successLAAlunos(tx, results) {
+    console.log(results.rows.length);
+    var len = results.rows.length;
+    var parent = document.getElementById('listviewAlunos');
+    parent.innerHTML = '<li><a href="#cadastroAluno">Novo aluno</a></li>';
+    for (var i=0; i<len; i++){
+        
+        parent.innerHTML = parent.innerHTML + '<li><a href="#" onclick="openAluno(' +results.rows.item(i).id+ ', \''+ results.rows.item(i).nome +'\');">'
+                        + '<h2>' + results.rows.item(i).nome + '</h2>'
+                        + '</a></li>';
+ 
+        novoId = results.rows.item(i).id;
+        
+    }
+    
+    var list = document.getElementById('listviewAlunos');
+    $(list).listview("refresh");
+    
+    novoId = novoId + 1;
+}
+
+function excluir(){
+        $('#deleteAluno').popup("open");
+}
+
+function removeAluno(){
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(deleteAluno, errorSQL, deleteSucess);
+}
+
+function deleteAluno(tx){
+    tx.executeSql('DELETE FROM S_ALUNO WHERE id = ' + idAluno);
+}
+
+function deleteSucess(){
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(listaAlunos, errorSQL);
+    $.mobile.changePage("#cadastroAluno");
 }
