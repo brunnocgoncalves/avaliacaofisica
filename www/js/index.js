@@ -16,34 +16,75 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+var novoId;
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+document.addEventListener("deviceready", onDeviceReady, false);
 
-        console.log('Received Event: ' + id);
+onDeviceReady();
+
+function onDeviceReady() {
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(createDataBase, errorSQL, successCD);
+    db.transaction(listaAlunos, errorSQL);
+}
+
+function createDataBase(tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS S_ALUNO (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, email TEXT, datanascimento DATETIME, sexo TEXT, created DATETIME, updated DATETIME)');
+}
+
+function errorSQL(err) {
+    $('#msg-error').popup("open");
+    console.log("Error processing SQL: "+err.message);
+}
+
+function successCD() {
+    console.log('Base de dados criada com sucesso!');
+}
+
+function listaAlunos(tx){
+    tx.executeSql('SELECT * FROM S_ALUNO', [], successLA, errorSQL);
+}
+
+function successLA(tx, results) {
+    console.log(results.rows.length);
+    var len = results.rows.length;
+    var parent = document.getElementById('listview');
+    parent.innerHTML = "";
+    for (var i=0; i<len; i++){
+        
+        parent.innerHTML = parent.innerHTML + '<li><a href="#" onclick="openAluno(' +results.rows.item(i).id+ ', \''+ results.rows.item(i).nome +'\');">'
+                        + '<h2>' + results.rows.item(i).nome + '</h2>'
+                        + '</a></li>';
+ 
+        novoId = results.rows.item(i).id;
     }
-};
+    
+    var list = document.getElementById('listview');
+    $(list).listview("refresh");
+    
+    novoId = novoId + 1;
+}
+
+function save(){
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(createAluno, errorSQL, successCA);
+}
+
+function createAluno(tx) {
+    varNome = document.getElementById("text-name").value;
+    varEmail = document.getElementById("email").value;
+    vardatanascimento = document.getElementById("date").value;
+    varSexo = $('#radio-choice-c').filter(':checked').val();
+    if(varSexo!="M")
+        {
+            varSexo = "F";
+        }
+    tx.executeSql('INSERT INTO S_ALUNO (nome, email, datanascimento, sexo, created) VALUES ("' + varNome + '", "' + varEmail + '", "' + vardatanascimento + '", "' + varSexo + '", datetime("now"))');
+}
+
+function successCA() {
+    $('#msg-sucess').popup("open");
+    
+    var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
+    db.transaction(listaAlunos, errorSQL);
+}

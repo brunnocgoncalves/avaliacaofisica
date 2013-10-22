@@ -29,38 +29,56 @@
     <body>
 
         <!-- Start of first page -->
-        <div data-role="page" id="foo">
+        <div data-role="page" id="cadastroAluno">
 
-            <div data-role="header">
-                <h1>Avaliacao Fisica</h1>
+            <div data-role="popup" id="msg-error" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:100%; padding-bottom:2em; width:100%">
+
+                <h3>Falha ao executar sua solicitacao!!!</h3>
+
+            </div>
+
+            <div data-role="popup" id="msg-sucess" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:100%; padding-bottom:2em; width:100%">
+
+                <h3>Aluno criado com sucesso!!!</h3>
+
+            </div>
+
+            <div data-role="header" data-position="fixed" data-theme="d">
+                <h1>Novo aluno</h1>
+                <a href="#menu" data-icon="bars" data-iconpos="notext">Menu</a>
             </div><!-- /header -->
 
-            <div data-role="content">
-                <p>I'm first in the source order so I'm shown as the page.</p>
-                <p>View internal page called <a href="#bar">bar</a></p>
-            </div><!-- /content -->
-
-            <div data-role="footer">
-                <h4>Page Footer</h4>
-            </div><!-- /footer -->
-        </div><!-- /page -->
-
-        <!-- Start of second page -->
-        <div data-role="page" id="bar">
-
-            <div data-role="header">
-                <h1>Bar</h1>
-            </div><!-- /header -->
+            <div data-role="panel" id="menu" data-display="overlay" data-fixed="true">
+                <ul data-role="listview" data-theme="b" class="nav-search" id="listview">
+                </ul>
+            </div><!-- /panel -->
 
             <div data-role="content">
-                <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>
-                <p><a href="#foo">Back to foo</a></p>
+                <label for="text-name">Nome:</label>
+                <input type="text" name="text-name" id="text-name" value="">
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="" data-clear-btn="true" data-mini="false">
+
+                <label for="date">Data de nascimento:</label>
+                <input type="date" name="date" id="date" value="">
+
+                <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <legend>Sexo:</legend>
+                        <input type="radio" name="radio-choice-b" id="radio-choice-c" value="M" checked="checked">
+                        <label for="radio-choice-c">Masculino</label>
+                        <input type="radio" name="radio-choice-b" id="radio-choice-d" value="F">
+                        <label for="radio-choice-d">Feminino</label>
+                </fieldset>
+
+                <div class="ui-grid-solo">
+                    <div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="false" id="btnSalvar" onClick="save()">Salvar</a></div>
+                </div>
+                
             </div><!-- /content -->
 
-            <div data-role="footer">
-                <h4>Page Footer</h4>
-            </div><!-- /footer -->
         </div><!-- /page -->
+
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
