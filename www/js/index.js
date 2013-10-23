@@ -88,6 +88,10 @@ function successCA() {
     
     var db = window.openDatabase("avaliacaoFisica", "1.0", "avaliacaoFisica", 200000);
     db.transaction(listaAlunos, errorSQL);
+
+    document.getElementById("text-name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("date").value = "";
 }
 
 function openAluno(id, nome){
