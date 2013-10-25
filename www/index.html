@@ -111,6 +111,10 @@
                     
                     </div>
 
+                    <div class="ui-grid-solo">
+                        <div class="ui-block-a"><a href="#avaliacao" data-rel="close" data-role="button" data-theme="b" data-mini="false">Nova Avaliacao</a></div>
+                    </div>
+
                     <div data-role="collapsible" data-theme="b" data-content-theme="d">
                         <h4>Avaliacoes</h4>
                         <p>Avaliacoes</p>
@@ -131,18 +135,63 @@
                 <div data-role="content">
 
                     <div data-role="collapsible" data-theme="b" data-content-theme="d">
-                        <h4>Medidas</h4>
-                        <p>Medidas</p>
+                        <h4>Objetivos</h4>
+                        <fieldset data-role="controlgroup">
+                            
+                            <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+                            <label for="checkbox-v-2a">Enrijecimento</label>
+                            <input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+                            <label for="checkbox-v-2b">Fortalecimento Muscular</label>
+                            <input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+                            <label for="checkbox-v-2c">Definicao muscular</label>
+                        </fieldset>
                     </div>
 
                     <div data-role="collapsible" data-theme="b" data-content-theme="d">
-                        <h4>Circunferencias</h4>
-                        <p>Circunferencias</p>
+                        <h4>Antecedentes</h4>
+                        <label for="textarea-1">Sistema musculo esqueletico:</label>
+                        <textarea cols="40" rows="8" name="textarea-1" id="textarea-1"></textarea>
+
+                        <label for="textarea-1">Sistema cardiovascular:</label>
+                        <textarea cols="40" rows="8" name="textarea-1" id="textarea-1"></textarea>
+
+                        <label for="textarea-1">Sistema respiratorio:</label>
+                        <textarea cols="40" rows="8" name="textarea-1" id="textarea-1"></textarea>
+
+                        <label for="textarea-1">Sistema gastrointestinal:</label>
+                        <textarea cols="40" rows="8" name="textarea-1" id="textarea-1"></textarea>
+
+                        <label for="textarea-1">Outros:</label>
+                        <textarea cols="40" rows="8" name="textarea-1" id="textarea-1"></textarea>
                     </div>
 
                     <div data-role="collapsible" data-theme="b" data-content-theme="d">
-                        <h4>Orientacoes gerais</h4>
-                        <p>Orientacoes gerais</p>
+                        <h4>Antropometria</h4>
+                        <p>Antropometria</p>
+                    </div>
+
+                    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+                        <h4>Relacao cintura quadril</h4>
+                        <p>Relacao cintura quadril</p>
+                    </div>
+
+                    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+                        <h4>Composicao Corporal</h4>
+                        <p>Composicao Corporal</p>
+                    </div>
+
+                    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+                        <h4>Gasto Metabolico Basal</h4>
+                        <p>Gasto Metabolico Basal</p>
+                    </div>
+
+                    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+                        <h4>Recomendacoes</h4>
+                        <p>Recomendacoes</p>
+                    </div>
+
+                    <div class="ui-grid-solo">
+                        <div class="ui-block-a"><a href="#avaliacao" data-rel="close" data-role="button" data-theme="c" data-mini="false" id="btnNovaAvaliacao" onClick="saveAvaliacao()">Salvar</a></div>
                     </div>
                             
                 </div><!-- /content -->

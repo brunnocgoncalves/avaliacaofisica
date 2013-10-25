@@ -171,3 +171,8 @@ function deleteSucess(){
     db.transaction(listaAlunos, errorSQL);
     $.mobile.changePage("#cadastroAluno");
 }
+
+function saveAvaliacao(){
+    alert("Salvo com sucesso.")
+
+}
